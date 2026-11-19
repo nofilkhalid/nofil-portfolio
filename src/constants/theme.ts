@@ -1,65 +1,45 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://unistyl.es/), etc.
- */
+import { useColorScheme } from 'react-native';
 
-import '@/global.css';
+// Semantic color tokens. Monochrome base with a single blue accent.
+// Every text/background pair below meets WCAG AA (4.5:1) for body text.
+const light = {
+  background: '#FAFAFA',
+  card: '#FFFFFF',
+  foreground: '#09090B',
+  mutedForeground: '#475569',
+  muted: '#EEF2F6',
+  border: '#E4E4E7',
+  accent: '#2563EB',
+  onAccent: '#FFFFFF',
+  accentSoft: '#DBEAFE',
+  onAccentSoft: '#1E3A8A',
+  pressed: 'rgba(9, 9, 11, 0.06)',
+};
 
-import { Platform } from 'react-native';
+const dark: typeof light = {
+  background: '#09090B',
+  card: '#18181B',
+  foreground: '#FAFAFA',
+  mutedForeground: '#A1A1AA',
+  muted: '#27272A',
+  border: '#27272A',
+  accent: '#60A5FA',
+  onAccent: '#09090B',
+  accentSoft: '#1E293B',
+  onAccentSoft: '#BFDBFE',
+  pressed: 'rgba(250, 250, 250, 0.08)',
+};
 
-export const Colors = {
-  light: {
-    text: '#000000',
-    background: '#ffffff',
-    backgroundElement: '#F0F0F3',
-    backgroundSelected: '#E0E1E6',
-    textSecondary: '#60646C',
-  },
-  dark: {
-    text: '#ffffff',
-    background: '#000000',
-    backgroundElement: '#212225',
-    backgroundSelected: '#2E3135',
-    textSecondary: '#B0B4BA',
-  },
-} as const;
+export type ThemeColors = typeof light;
 
-export type ThemeColor = keyof typeof Colors.light & keyof typeof Colors.dark;
+export const spacing = { xs: 4, sm: 8, md: 16, lg: 24, xl: 32, xxl: 48 } as const;
+export const radius = { sm: 8, md: 12, lg: 16, pill: 999 } as const;
+export const fontSize = { caption: 13, body: 16, lead: 17, title: 20, h2: 24, h1: 32 } as const;
+export const iconSize = { sm: 16, md: 20, lg: 24 } as const;
 
-export const Fonts = Platform.select({
-  ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
-    sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
-    serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
-    rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
-    mono: 'ui-monospace',
-  },
-  default: {
-    sans: 'normal',
-    serif: 'serif',
-    rounded: 'normal',
-    mono: 'monospace',
-  },
-  web: {
-    sans: 'var(--font-display)',
-    serif: 'var(--font-serif)',
-    rounded: 'var(--font-rounded)',
-    mono: 'var(--font-mono)',
-  },
-});
+// Keeps long text at a readable width on tablets and web.
+export const contentMaxWidth = 720;
 
-export const Spacing = {
-  half: 2,
-  one: 4,
-  two: 8,
-  three: 16,
-  four: 24,
-  five: 32,
-  six: 64,
-} as const;
-
-export const BottomTabInset = Platform.select({ ios: 50, android: 80 }) ?? 0;
-export const MaxContentWidth = 800;
+export function useTheme(): ThemeColors {
+  return useColorScheme() === 'dark' ? dark : light;
+}
