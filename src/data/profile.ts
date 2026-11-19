@@ -1,5 +1,5 @@
 // Portfolio content. Taken from the Product Owner CV; swap in real values as needed.
-// `photo` is a placeholder: set it to require('@/assets/images/profile.jpg') once a photo is added.
+// Profile photo: assets/images/profile.jpg (square headshot crop).
 import type { ImageSource } from 'expo-image';
 
 export type Stat = { value: string; label: string };
@@ -11,7 +11,7 @@ export type Education = { degree: string; school: string; period: string; notes:
 export const profile = {
   name: 'Nofil Khalid',
   initials: 'NK',
-  photo: null as ImageSource | null,
+  photo: require('@/assets/images/profile.jpg') as ImageSource | null,
   headline: 'Product Owner | Business Analyst',
   location: 'Karachi, Pakistan',
   availability: 'Open to fully remote roles · Available immediately',

@@ -18,6 +18,7 @@ export function Avatar({ size = 128 }: { size?: number }) {
         source={profile.photo}
         style={[frame, { borderWidth: 3, borderColor: c.card }]}
         contentFit="cover"
+        contentPosition="top"
         accessibilityLabel={`Photo of ${profile.name}`}
       />
     );
