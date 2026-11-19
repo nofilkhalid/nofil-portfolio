@@ -34,10 +34,10 @@ function TabButton({ children, isFocused, ...props }: TabTriggerSlotProps) {
       {...props}
       accessibilityRole="tab"
       accessibilityState={{ selected: isFocused }}
-      style={({ pressed, hovered }) => [
+      style={({ pressed }) => [
         styles.tab,
         isFocused && { backgroundColor: c.accentSoft },
-        !isFocused && (hovered || pressed) && { backgroundColor: c.muted },
+        !isFocused && pressed && { backgroundColor: c.muted },
       ]}>
       <Text style={[styles.tabLabel, { color: isFocused ? c.onAccentSoft : c.mutedForeground }]}>{children}</Text>
     </Pressable>
