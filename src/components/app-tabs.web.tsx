@@ -27,7 +27,8 @@ export default function AppTabs() {
   );
 }
 
-function TabButton({ children, isFocused, ...props }: TabTriggerSlotProps) {
+// `ref` is dropped: its type in expo-router/ui does not match Pressable's, and the trigger works without it.
+function TabButton({ children, isFocused, ref: _ref, ...props }: TabTriggerSlotProps) {
   const c = useTheme();
   return (
     <Pressable
