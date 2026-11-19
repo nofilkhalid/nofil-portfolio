@@ -1,29 +1,46 @@
-import { TabList, TabSlot, TabTrigger, Tabs, type TabTriggerSlotProps } from 'expo-router/ui';
+import {
+  TabList,
+  TabSlot,
+  TabTrigger,
+  Tabs,
+  type TabListProps,
+  type TabTriggerSlotProps,
+} from 'expo-router/ui';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { contentMaxWidth, fontSize, radius, spacing, useTheme } from '@/constants/theme';
 import { profile } from '@/data/profile';
 
+// TabList must be a direct child of Tabs so the triggers register as routes.
 export default function AppTabs() {
   const c = useTheme();
 
   return (
     <Tabs style={{ flex: 1, backgroundColor: c.background }}>
-      <View style={[styles.bar, { backgroundColor: c.card, borderBottomColor: c.border }]}>
-        <View style={styles.barInner}>
-          <Text style={[styles.brand, { color: c.foreground }]}>{profile.name}</Text>
-          <TabList style={styles.list}>
-            <TabTrigger name="home" href="/" asChild>
-              <TabButton>Home</TabButton>
-            </TabTrigger>
-            <TabTrigger name="resume" href="/resume" asChild>
-              <TabButton>Resume</TabButton>
-            </TabTrigger>
-          </TabList>
-        </View>
-      </View>
+      <TabList asChild>
+        <TopBar>
+          <TabTrigger name="home" href="/" asChild>
+            <TabButton>Home</TabButton>
+          </TabTrigger>
+          <TabTrigger name="resume" href="/resume" asChild>
+            <TabButton>Resume</TabButton>
+          </TabTrigger>
+        </TopBar>
+      </TabList>
       <TabSlot style={{ flex: 1 }} />
     </Tabs>
+  );
+}
+
+function TopBar({ children, style: _style, ...props }: TabListProps) {
+  const c = useTheme();
+  return (
+    <View {...props} style={[styles.bar, { backgroundColor: c.card, borderBottomColor: c.border }]}>
+      <View style={styles.barInner}>
+        <Text style={[styles.brand, { color: c.foreground }]}>{profile.name}</Text>
+        <View style={styles.list}>{children}</View>
+      </View>
+    </View>
   );
 }
 
